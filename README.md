@@ -1,25 +1,18 @@
 
 # Table of Contents
 
-1.  [Jumble - llmII&rsquo;s collection of Janet utilities](#orga29bac1)
-    1.  [Installation:](#org3b3129c)
-    2.  [Use:](#org6d87b53)
-2.  [Submodules](#orga01c7e8)
-    1.  [`jumble-redef`](#orga680d85)
-        1.  [Future: `jumble-defun`](#org19fcdf0)
-3.  [NOTES:](#orgb4f264c)
-
-\#+TITLE jumble - llmII&rsquo;s collection of Janet utilities
-
-1.  TODO Create tests
-
-2.  TODO Fix jumble-redef to expose a better interface
-
-    Right now it has a few definitions for redef with export as true or not. Need
-    to do this in a better way.
+1.  [Jumble - llmII&rsquo;s collection of Janet utilities](#org35c0ba0)
+    1.  [Installation:](#org50772c1)
+    2.  [Use:](#orga3c38b5)
+2.  [Submodules](#orgdcacb6b)
+    1.  [`jumble-redef`](#orge2077ea)
+        1.  [Future: `jumble-defun`](#orgbf37536)
+3.  [NOTES:](#org2783378)
+    1.  [Create tests](#org4f2c6d7)
+    2.  [Fix jumble-redef to expose a better interface](#org7f1ccef)
 
 
-<a id="orga29bac1"></a>
+<a id="org35c0ba0"></a>
 
 # Jumble - llmII&rsquo;s collection of Janet utilities
 
@@ -28,14 +21,14 @@ these hide in other things I write as non-exported definitions, the things
 that inspire that belief will find their place here.
 
 
-<a id="org3b3129c"></a>
+<a id="org50772c1"></a>
 
 ## Installation:
 
 One can install this with `jpm install https://github.com/llmII/jumble`
 
 
-<a id="org6d87b53"></a>
+<a id="orga3c38b5"></a>
 
 ## Use:
 
@@ -49,12 +42,12 @@ could `(use jumble)` where living with the prefix `jumble` seems like too much
 noise for you.
 
 
-<a id="orga01c7e8"></a>
+<a id="orgdcacb6b"></a>
 
 # Submodules
 
 
-<a id="orga680d85"></a>
+<a id="orge2077ea"></a>
 
 ## `jumble-redef`
 
@@ -66,15 +59,28 @@ being an option to have one property that is differing from the original
 `sym`, being whether or not the new alias `sym-alias` is exported.
 
 
-<a id="org19fcdf0"></a>
+<a id="orgbf37536"></a>
 
 ### Future: `jumble-defun`
 
 
-<a id="orgb4f264c"></a>
+<a id="org2783378"></a>
 
 # NOTES:
 
 README.md is generated from the README.org file, so there may be instances
 where the README.org is more up to date, though we&rsquo;ll try to avoid that.
+
+
+<a id="org4f2c6d7"></a>
+
+## TODO Create tests
+
+
+<a id="org7f1ccef"></a>
+
+## TODO Fix jumble-redef to expose a better interface
+
+Right now it has a few definitions for redef with export as true or not. Need
+to do this in a better way.
 
