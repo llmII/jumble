@@ -1,3 +1,92 @@
+(def defun-error
+  {:keyword-tuple-3
+     "A keyword argument must be a tuple with less than 3 members"
+   :keyword-symbol-2
+     (string "Cannot specify more than a keyword and symbol when assigning"
+             " the keyword for a symbol")})
+
+(defn- process-key
+  [args point opt-args defaults bounds]
+  (array/push opt-args '&keys)
+  (var idx (+ 1 point))
+
+  (let [len (- (length args) bounds)]
+    (while (< idx len)
+      (def [key sym body] (process-single-key (get args idx)))
+      (put keys key sym)
+      (array/concat defaults body))))
+
+(defn- process-single-key
+  [arg]
+  (def [sym key body] [nil nil @[]])
+  (match (type arg)
+    :symbol (do
+              (set sym arg)
+              (set key (keyword sym)))
+    :tuple  (do
+              # error on length > 3!
+              (when (> (length arg) 3)
+                (error (defun-error :keyword-tuple-3)))
+              # figure out the symbol and keyword
+              (match (type (get arg 0))
+                :symbol (do
+                          (set sym arg)
+                          (set key (keyword sym)))
+                :tuple  (do
+                          (when (> length (get arg 0) 2)
+                            (error (defun-error :keyword-symbol-2)))
+                          (set key (get (get arg 0) 0))
+                          (set sym (get (get arg 0) 1))))
+              # figure out the body it'll end up pushing in
+              (if (= (length arg) 3)
+                # default and sentinel
+                (array/concat body
+                              [~(def ,(get arg 2) (= ,sym nil))]
+                              [~(def ,sym (default ,sym) ,(get arg 1))])
+                # default or sentinel
+                (if (symbol? (get arg 1))
+                  (array/push body ~(def ,(get arg 1) (= ,sym nil)))
+                  (array/push body
+                              ~(def ,sym (default ,sym ,(get arg 1)))))))))
+  [key sym [body]]))
+
+(defn- process-opt
+  [args point opt-args defaults bounds]
+  (array/push opt-args '&opt)
+  (var idx (+ 1 point))
+  (let [len (- (length args) bounds)]
+    (while (< idx len)
+      (def cur (get args idx))
+      (match (type cur)
+        :symbol (array/push opt-args cur)
+        :tuple  (do
+                  (def [v d] cur)
+                  (array/push opt-args v)
+                  (array/push defaults
+                              ~(def ,v (default ,v ,d)))))
+      (++ idx))))
+
+(defn- key-or-opt?
+  [args i]
+  (case (get args i)
+    '&opt :opt
+    '&key :key
+    _     :none))
+
+(defn- illegal-opt-and-keys?
+  [args idx]
+  (and (index-of '&key args) (index-of '&opt args)))
+
+(defn- specifier?
+  [arg]
+  (or (not (symbol? arg))
+      (= '&key arg)
+      (= '&opt arg)
+      (= '& arg)))
+
+(defn variadic?
+  [args]
+  (= (get args (- (length args) 2)) '&))
 # like common lisp?
 (defmacro defun
   ```
@@ -113,92 +202,3 @@
 
     ))
 
-(def defun-error
-  {:keyword-tuple-3
-     "A keyword argument must be a tuple with less than 3 members"
-   # TODO: fix length!
-   :keyword-symbol-2
-     "Cannot specify more than a keyword and symbol when assigning the keyword for a symbol"})
-
-(defn- process-key
-  [args point opt-args defaults bounds]
-  (array/push opt-args '&keys)
-  (var idx (+ 1 point))
-
-  (let [len (- (length args) bounds)
-        keys @{}]
-    (while (< idx len)
-
-      )))
-
-(defn- process-single-key
-  [arg]
-  (def [sym key body] [nil nil @[]])
-  (match (type arg)
-    :symbol (do
-              (set sym arg)
-              (set key (keyword sym)))
-    :tuple  (do
-              # error on length > 3!
-              (when (> (length arg) 3)
-                (error (defun-error :keyword-tuple-3)))
-              # figure out the symbol and keyword
-              (match (type (get arg 0))
-                :symbol (do
-                          (set sym arg)
-                          (set key (keyword sym)))
-                :tuple  (do
-                          (when (> length (get arg 0) 2)
-                            (error (defun-error :keyword-symbol-2)))
-                          (set key (get (get arg 0) 0))
-                          (set sym (get (get arg 0) 1))))
-              # figure out the body it'll end up pushing in
-              (if (= (length arg) 3)
-                # default and sentinel
-                (array/concat body
-                              [~(def ,(get arg 2) (= ,sym nil))]
-                              [~(def ,sym (default ,sym) ,(get arg 1))])
-                # default or sentinel
-                (if (symbol? (get arg 1))
-                  (array/push body ~(def ,(get arg 1) (= ,sym nil)))
-                  (array/push body
-                              ~(def ,sym (default ,sym ,(get arg 1)))))))))
-  [key sym [body]]))
-
-(defn- process-opt
-  [args point opt-args defaults bounds]
-  (array/push opt-args '&opt)
-  (var idx (+ 1 point))
-  (let [len (- (length args) bounds)]
-    (while (< idx len)
-      (def cur (get args idx))
-      (match (type cur)
-        :symbol (array/push opt-args cur)
-        :tuple  (do
-                  (def [v d] cur)
-                  (array/push opt-args v)
-                  (array/push defaults
-                              ~(def ,v (default ,v ,d)))))
-      (++ idx))))
-
-(defn- key-or-opt?
-  [args i]
-  (case (get args i)
-    '&opt :opt
-    '&key :key
-    _     :none))
-
-(defn- illegal-opt-and-keys?
-  [args idx]
-  (and (index-of '&key args) (index-of '&opt args)))
-
-(defn- specifier?
-  [arg]
-  (or (not (symbol? arg))
-      (= '&key arg)
-      (= '&opt arg)
-      (= '& arg)))
-
-(defn variadic?
-  [args]
-  (= (get args (- (length args) 2)) '&))

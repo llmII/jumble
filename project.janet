@@ -11,4 +11,4 @@
    ```)
 
 (declare-source
- :source ["jumble.janet" "src/jumble-redef.janet"])
+ :source ["jumble.janet" "jumble"])

@@ -18,7 +18,7 @@ noise for you.
 
 * Submodules
 
-** ~jumble-redef~
+** ~jumble/aliasing~
 When you import ~jumble~ these should be available under ~jumble/*~ and are
 utilities for creating aliases to a symbol such that when you have a symbol
 ~sym~ you can create aliases like ~sym-alias~ that will share all properties
@@ -26,7 +26,10 @@ that ~sym~ has (meaning the doc string for both will be the same), with there
 being an option to have one property that is differing from the original
 ~sym~, being whether or not the new alias ~sym-alias~ is exported.
 
-*** Future: ~jumble-defun~
+** ~jumble/moddoc~
+Utilities for modifying the doc strings of dyns.
+
+** Future: ~jumble/defun~
 
 * NOTES:
 README.md is generated from the README.org file, so there may be instances

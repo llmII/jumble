@@ -1,18 +1,19 @@
 
 # Table of Contents
 
-1.  [Jumble - llmII&rsquo;s collection of Janet utilities](#org35c0ba0)
-    1.  [Installation:](#org50772c1)
-    2.  [Use:](#orga3c38b5)
-2.  [Submodules](#orgdcacb6b)
-    1.  [`jumble-redef`](#orge2077ea)
-        1.  [Future: `jumble-defun`](#orgbf37536)
-3.  [NOTES:](#org2783378)
-    1.  [Create tests](#org4f2c6d7)
-    2.  [Fix jumble-redef to expose a better interface](#org7f1ccef)
+1.  [Jumble - llmII&rsquo;s collection of Janet utilities](#org92cfa3f)
+    1.  [Installation:](#orgfcd93a2)
+    2.  [Use:](#org6bf2532)
+2.  [Submodules](#org50d4ec0)
+    1.  [`jumble/aliasing`](#org1d472aa)
+    2.  [`jumble/moddoc`](#orgd3f1e19)
+    3.  [Future: `jumble/defun`](#org2a1c3cf)
+3.  [NOTES:](#orgd3f90e8)
+    1.  [Create tests](#org54bc507)
+    2.  [Fix jumble-redef to expose a better interface](#orga0a6c29)
 
 
-<a id="org35c0ba0"></a>
+<a id="org92cfa3f"></a>
 
 # Jumble - llmII&rsquo;s collection of Janet utilities
 
@@ -21,14 +22,14 @@ these hide in other things I write as non-exported definitions, the things
 that inspire that belief will find their place here.
 
 
-<a id="org50772c1"></a>
+<a id="orgfcd93a2"></a>
 
 ## Installation:
 
 One can install this with `jpm install https://github.com/llmII/jumble`
 
 
-<a id="orga3c38b5"></a>
+<a id="org6bf2532"></a>
 
 ## Use:
 
@@ -42,14 +43,14 @@ could `(use jumble)` where living with the prefix `jumble` seems like too much
 noise for you.
 
 
-<a id="orgdcacb6b"></a>
+<a id="org50d4ec0"></a>
 
 # Submodules
 
 
-<a id="orge2077ea"></a>
+<a id="org1d472aa"></a>
 
-## `jumble-redef`
+## `jumble/aliasing`
 
 When you import `jumble` these should be available under `jumble/*` and are
 utilities for creating aliases to a symbol such that when you have a symbol
@@ -59,12 +60,19 @@ being an option to have one property that is differing from the original
 `sym`, being whether or not the new alias `sym-alias` is exported.
 
 
-<a id="orgbf37536"></a>
+<a id="orgd3f1e19"></a>
 
-### Future: `jumble-defun`
+## `jumble/moddoc`
+
+Utilities for modifying the doc strings of dyns.
 
 
-<a id="org2783378"></a>
+<a id="org2a1c3cf"></a>
+
+## Future: `jumble/defun`
+
+
+<a id="orgd3f90e8"></a>
 
 # NOTES:
 
@@ -72,12 +80,12 @@ README.md is generated from the README.org file, so there may be instances
 where the README.org is more up to date, though we&rsquo;ll try to avoid that.
 
 
-<a id="org4f2c6d7"></a>
+<a id="org54bc507"></a>
 
 ## TODO Create tests
 
 
-<a id="org7f1ccef"></a>
+<a id="orga0a6c29"></a>
 
 ## TODO Fix jumble-redef to expose a better interface
 
