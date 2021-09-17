@@ -1,8 +1,8 @@
 #+TITLE jumble - llmII's collection of Janet utilities
 
-* TODO Create tests
+***** TODO Create tests
 
-* TODO Fix jumble-redef to expose a better interface
+***** TODO Fix jumble-redef to expose a better interface
 Right now it has a few definitions for redef with export as true or not. Need
 to do this in a better way.
 

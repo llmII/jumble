@@ -1,33 +1,25 @@
 
 # Table of Contents
 
-1.  [Create tests](#orga57deb0)
-2.  [Fix jumble-redef to expose a better interface](#orga7e055b)
-3.  [Jumble - llmII&rsquo;s collection of Janet utilities](#orgf84c935)
-    1.  [Installation:](#org6467b3f)
-    2.  [Use:](#orgabf4df3)
-4.  [Submodules](#org7609671)
-    1.  [`jumble-redef`](#org9ddebb9)
-        1.  [Future: `jumble-defun`](#orge5469c6)
-5.  [NOTES:](#orgf21f1ae)
+1.  [Jumble - llmII&rsquo;s collection of Janet utilities](#orga29bac1)
+    1.  [Installation:](#org3b3129c)
+    2.  [Use:](#org6d87b53)
+2.  [Submodules](#orga01c7e8)
+    1.  [`jumble-redef`](#orga680d85)
+        1.  [Future: `jumble-defun`](#org19fcdf0)
+3.  [NOTES:](#orgb4f264c)
 
 \#+TITLE jumble - llmII&rsquo;s collection of Janet utilities
 
+1.  TODO Create tests
 
-<a id="orga57deb0"></a>
+2.  TODO Fix jumble-redef to expose a better interface
 
-# TODO Create tests
-
-
-<a id="orga7e055b"></a>
-
-# TODO Fix jumble-redef to expose a better interface
-
-Right now it has a few definitions for redef with export as true or not. Need
-to do this in a better way.
+    Right now it has a few definitions for redef with export as true or not. Need
+    to do this in a better way.
 
 
-<a id="orgf84c935"></a>
+<a id="orga29bac1"></a>
 
 # Jumble - llmII&rsquo;s collection of Janet utilities
 
@@ -36,14 +28,14 @@ these hide in other things I write as non-exported definitions, the things
 that inspire that belief will find their place here.
 
 
-<a id="org6467b3f"></a>
+<a id="org3b3129c"></a>
 
 ## Installation:
 
 One can install this with `jpm install https://github.com/llmII/jumble`
 
 
-<a id="orgabf4df3"></a>
+<a id="org6d87b53"></a>
 
 ## Use:
 
@@ -57,12 +49,12 @@ could `(use jumble)` where living with the prefix `jumble` seems like too much
 noise for you.
 
 
-<a id="org7609671"></a>
+<a id="orga01c7e8"></a>
 
 # Submodules
 
 
-<a id="org9ddebb9"></a>
+<a id="orga680d85"></a>
 
 ## `jumble-redef`
 
@@ -74,12 +66,12 @@ being an option to have one property that is differing from the original
 `sym`, being whether or not the new alias `sym-alias` is exported.
 
 
-<a id="orge5469c6"></a>
+<a id="org19fcdf0"></a>
 
 ### Future: `jumble-defun`
 
 
-<a id="orgf21f1ae"></a>
+<a id="orgb4f264c"></a>
 
 # NOTES:
 
