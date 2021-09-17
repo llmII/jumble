@@ -1,11 +1,3 @@
-#+TITLE jumble - llmII's collection of Janet utilities
-
-***** TODO Create tests
-
-***** TODO Fix jumble-redef to expose a better interface
-Right now it has a few definitions for redef with export as true or not. Need
-to do this in a better way.
-
 * Jumble - llmII's collection of Janet utilities
 For some reason I believe others may find these useful. Rather than having
 these hide in other things I write as non-exported definitions, the things
@@ -39,3 +31,9 @@ being an option to have one property that is differing from the original
 * NOTES:
 README.md is generated from the README.org file, so there may be instances
 where the README.org is more up to date, though we'll try to avoid that.
+
+** TODO Create tests
+
+** TODO Fix jumble-redef to expose a better interface
+Right now it has a few definitions for redef with export as true or not. Need
+to do this in a better way.
