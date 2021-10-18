@@ -162,7 +162,6 @@
   # Always clone symbol here (in case the original symbol gets modified to not
   # exported).
   (default export false)
-  (printf "DEFALIASES* %q %q %q" sym aliases export)
   (defclone* sym (get aliases 0) :export export)
 
   (var idx (- (length aliases) 1))
