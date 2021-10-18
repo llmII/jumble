@@ -22,9 +22,10 @@
 # Definition modified heavily.
 (defn defalias*
   ```
-  `sym`   **:symbol**
+  	`sym`   **:symbol**
 
-  `alias` **:symbol**
+  	`alias` **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is shared so if it is changed at a later time on
@@ -36,11 +37,12 @@
 
 (defn defclone*
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
 
-  `:export` **:boolean**
+  	`:export` **:boolean**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone will be an
@@ -54,9 +56,10 @@
 
 (defn defclone-*
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone is an exported
@@ -67,9 +70,10 @@
 
 (defn defclone+*
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone is not an
@@ -80,9 +84,10 @@
 
 (defmacro defalias
   ```
-  `sym`   **:symbol**
+  	`sym`   **:symbol**
 
-  `alias` **:symbol**
+  	`alias` **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is shared so if it is changed at a later time on
@@ -94,11 +99,12 @@
 
 (defmacro defclone
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
 
-  `:export` **:boolean**
+  	`:export` **:boolean**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone will be an
@@ -110,9 +116,10 @@
 
 (defmacro defclone+
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone is an exported
@@ -123,9 +130,10 @@
 
 (defmacro defclone-
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `alias`   **:symbol**
+  	`alias`   **:symbol**
+
 
   Define an `alias` for symbol `sym`. `alias` retains all the metadata
   from `sym`. The metadata is cloned not shared. The clone is an exported
@@ -136,11 +144,12 @@
 
 (defn defaliases*
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `aliases` **indexed?**
+  	`aliases` **indexed?**
 
-  `:export` **:boolean**
+  	`:export` **:boolean**
+
 
   Define each alias in `aliases` as an alias to `sym`. The first alias made is
   a clone of `sym` and the rest are aliases to this clone so as to allow for
@@ -153,21 +162,23 @@
   # Always clone symbol here (in case the original symbol gets modified to not
   # exported).
   (default export false)
-  (defclone sym (get aliases 0) :export export)
+  (printf "DEFALIASES* %q %q %q" sym aliases export)
+  (defclone* sym (get aliases 0) :export export)
 
   (var idx (- (length aliases) 1))
   (while (> idx 0)
-    (defalias (string (get aliases 0)) (get aliases idx))
+    (defalias* (symbol (get aliases 0)) (get aliases idx))
     (-- idx)))
 
 # defaliases?
 (defmacro defaliases
   ```
-  `sym`     **:symbol**
+  	`sym`     **:symbol**
 
-  `aliases` **indexed?**
+  	`aliases` **indexed?**
 
-  `:export` **:boolean**
+  	`:export` **:boolean**
+
 
   Define each alias in `aliases` as an alias to `sym`. The first alias made is
   a clone of `sym` and the rest are aliases to this clone so as to allow for
@@ -180,23 +191,23 @@
   `(defalias a b :export true c)` are the exact same, unlike with normal
   keyword argument calls.
   ```
-  [from & to]
+  [sym & aliases]
 
   (var i 0)
-  (let [len        (length to)
+  (let [len        (length aliases)
         collecting @[]
         rest       @[]]
     (while (< i len)
-      (if (is-export? to i)
+      (if (is-export? aliases i)
         # export keyword args
         (do
-          (array/concat rest (array/slice to i 2))
+          (array/concat rest (array/slice aliases i (+ i 2)))
           (+= i 2))
         # not export keyword args!
         (do
-          (array/push collecting (get to i))
+          (array/push collecting (get aliases i))
           (++ i))))
 
-    ~(defaliases* ,(string from) ',collecting ;rest)))
+    ~(defaliases* (symbol ',sym) ',collecting ,;rest)))
 (replace-definition defaliases
                     "(defaliases from &keys {:export} & to)")
